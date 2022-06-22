@@ -1,6 +1,7 @@
 package jana60;
 
 import java.text.DecimalFormat;
+import java.util.Random;
 
 public class Prodotto {
     //attributes
@@ -13,6 +14,13 @@ public class Prodotto {
     // constructor
     public Prodotto(int codice, String nome, String marca, double prezzo, double iva) {
         this.codice = codice;
+        this.nome = nome;
+        this.marca = marca;
+        this.prezzo = prezzo;
+        this.iva = iva;
+    }
+    public Prodotto(String nome, String marca, double prezzo, double iva) {
+        this.codice = Integer.parseInt(getId());
         this.nome = nome;
         this.marca = marca;
         this.prezzo = prezzo;
@@ -61,5 +69,20 @@ public class Prodotto {
         DecimalFormat df = new DecimalFormat("0.00¤");
         double prezzoFinale = prezzo+((prezzo/100)*iva);
         return df.format(prezzoFinale);
+    }
+
+    protected static String getId() {
+
+        String idString ="";
+        Random rn = new Random();
+        for (int i = 0;i<5;i++) {
+            idString += rn.nextInt(10);
+        }
+        return idString;
+    }
+
+    @Override
+    public String toString() {
+        return "Prodotto "+ codice + ": Nome: " + nome + ", prodotto da: " + marca +". Prezzo :" + prezzoFormattato();
     }
 }
